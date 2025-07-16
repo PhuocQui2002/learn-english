@@ -6,6 +6,7 @@ import SwiperCore from "swiper";
 import { Navigation } from "swiper/modules";
 import { mockTeachers } from "../api/mockData";
 
+
 function Test() {
   SwiperCore.use([Navigation]);
 
@@ -32,7 +33,7 @@ function Test() {
       >
         {mockTeachers.map((product, index) => (
           <SwiperSlide key={product.id}>
-            <div class="text-center text-gray-500 dark:text-gray-400">
+            <div class="hover-animation text-center text-gray-500 transition duration-300 dark:text-gray-400">
               <img
                 class="mx-auto mb-4 h-36 w-36 rounded-full"
                 src={product.avatar}

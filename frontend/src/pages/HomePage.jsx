@@ -6,7 +6,7 @@ import SwiperProductComponent from "../components/SwiperProductComponent";
 import { useState } from "react";
 import VideoModal from "../components/VideoModal";
 import { useNavigate } from "react-router-dom";
-import Test from "../components/Test";
+import Test from "../components/TeacherComponent";
 
 function HomePage() {
   const navigate = useNavigate();
@@ -45,7 +45,7 @@ function HomePage() {
               New
             </span>{" "}
             <span class="text-sm font-medium">
-              Flowbite is out! See what's new
+              Các khóa học sẽ được cập nhật thường xuyên, hãy theo dõi chúng tôi để không bỏ lỡ nhé!
             </span>
             <svg
               class="ml-2 h-5 w-5"

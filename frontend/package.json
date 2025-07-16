@@ -13,6 +13,7 @@
     "postinstall": "flowbite-react patch"
   },
   "dependencies": {
+    "@paypal/react-paypal-js": "^8.8.3",
     "@reduxjs/toolkit": "^2.8.2",
     "flowbite": "^1.8.1",
     "flowbite-react": "^0.10.0",

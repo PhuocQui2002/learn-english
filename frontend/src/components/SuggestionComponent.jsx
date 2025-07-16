@@ -7,8 +7,10 @@ import { Navigation } from "swiper/modules";
 import { mockTeachers, mockCourses } from "../api/mockData";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function SuggestionComponent() {
+  const navigate = useNavigate();
   SwiperCore.use([Navigation]);
   const courseFavorie = useSelector((store) => store.favories.courseFa);
   const { id } = useParams();
@@ -44,10 +46,13 @@ function SuggestionComponent() {
           768: { slidesPerView: 3 },
           1024: { slidesPerView: 4 },
         }}
-      >
-        {mockCourses.map((product, index) => (
-          <SwiperSlide key={product.id}>
-            <div class="text-center text-gray-500 dark:text-gray-400">
+      > {suggestedCourses.length === 0 && (
+        <div className="text-center text-gray-500 dark:text-gray-400">
+          Không có khóa học tương tự nào được tìm thấy.
+        </div>)}
+        {suggestedCourses.map((product, index) => (
+          <SwiperSlide key={product.id} onClick={() => navigate(`/productDetail/${product._id}`)}>
+            <div class="cursor-pointer text-center text-gray-500 dark:text-gray-400">
               <img
                 class="mx-auto mb-4 h-36 w-36 rounded-full"
                 src={product.image}

@@ -9,7 +9,7 @@ import "flowbite-react";
 import "flowbite/dist/flowbite.css";
 import "./index.css";
 import "flowbite";
-import "../src/style/override.css";
+
 // ✅ tạo persistor từ store
 const persistor = persistStore(store);
 

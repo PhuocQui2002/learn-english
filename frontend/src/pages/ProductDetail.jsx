@@ -1,4 +1,4 @@
-import { Button } from "flowbite-react";
+import { Button, Toast, ToastToggle } from "flowbite-react";
 import React, { useEffect, useState } from "react";
 import { Carousel } from "flowbite-react";
 import NavComponent from "../components/NavComponent";
@@ -10,6 +10,7 @@ import { setCourseHistory } from "../redux/Slices/historySlides";
 import img from "../assets/images/nen.jpg";
 import { setCourseFa } from "../redux/Slices/favoriteSlices";
 import SuggestionComponent from "../components/suggestionComponent";
+import { HiCheck } from "react-icons/hi";
 function ProductDetail() {
   const { id } = useParams();
   const courseHistory = useSelector((store) => store.history.courseHistory);
@@ -17,6 +18,8 @@ function ProductDetail() {
   const [isFavorite, setIsFavorite] = useState(
     courseFavorie.some((item) => item._id === id),
   );
+  const [showToast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState("");
 
   const dispatch = useDispatch();
 
@@ -24,21 +27,24 @@ function ProductDetail() {
   console.log("isFavorite", isFavorite);
 
   const addFavorie = () => {
-    console.log("filterCourse", filterCourse);
     if (!isFavorite) {
       dispatch(setCourseFa([...courseFavorie, filterCourse]));
       setIsFavorite(true);
-    }
-    if (isFavorite) {
+      setToastMessage("Đã thêm vào yêu thích!");
+    } else {
       const updatedList = courseFavorie.filter((item) => item._id !== id);
       dispatch(setCourseFa(updatedList));
       setIsFavorite(false);
+      setToastMessage("Đã hủy yêu thích!");
     }
+
+    setShowToast(true);
+    setTimeout(() => setShowToast(false), 3000); // Tự ẩn sau 3 giây
   };
 
   useEffect(() => {
     if (!filterCourse) return;
-
+    setIsFavorite(courseFavorie.some((item) => item._id === id));
     const isExist = courseHistory.find((product) => product._id === id);
     if (!isExist) {
       dispatch(setCourseHistory([...courseHistory, filterCourse]));
@@ -101,7 +107,10 @@ function ProductDetail() {
                       ? "border-pink-300 bg-pink-100 text-pink-600 hover:bg-pink-200 dark:border-pink-700 dark:bg-pink-900 dark:text-white dark:hover:bg-pink-800"
                       : "border-gray-200 bg-white text-gray-900 hover:bg-gray-100 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
                   } `}
-                  onClick={() => addFavorie()}
+                  onClick={() => {
+                    addFavorie();
+                    setShowToast(true);
+                  }}
                 >
                   <svg
                     class="-ms-2 me-2 h-5 w-5"
@@ -166,8 +175,19 @@ function ProductDetail() {
           </div>
         </div>
       </section>
-      <SuggestionComponent/>
+      <SuggestionComponent />
       <ReviewHistory />
+      {showToast && (
+        <div className="fixed top-6 left-1/2 -translate-x-1/2 z-50">
+          <Toast>
+            <div className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-green-100 text-green-500 dark:bg-green-800 dark:text-green-200">
+              <HiCheck className="h-5 w-5" />
+            </div>
+            <div className="ml-3 text-sm font-normal">{toastMessage}</div>
+            <ToastToggle onDismiss={() => setShowToast(false)} />
+          </Toast>
+        </div>
+      )}
     </div>
   );
 }

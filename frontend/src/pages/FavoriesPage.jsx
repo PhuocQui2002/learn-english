@@ -3,9 +3,12 @@ import NavComponent from "../components/NavComponent";
 import { useDispatch, useSelector } from "react-redux";
 import { FcLike, FcDislike } from "react-icons/fc";
 import { IoHeartDislikeSharp } from "react-icons/io5";
+import Paypal from "../components/Paypal";
 function Favories() {
-   const [isHover, setIsHover] = useState(null);
-  
+  const [isHover, setIsHover] = useState(null);
+  const [openModalPaypal, setOpenModalPaypal] = useState(false);
+  const [selectedCourse, setSelectedCourse] = useState(null);
+
   const courseFavorie = useSelector((store) => store.favories.courseFa);
   console.log("courseFavorie", courseFavorie);
   return (
@@ -54,7 +57,7 @@ function Favories() {
                     className="font-medium hover:underline dark:text-red-500"
                   >
                     <IoHeartDislikeSharp
-                      color={isHover  === index ? "red" : "pink"}
+                      color={isHover === index ? "red" : "pink"}
                       onMouseEnter={() => setIsHover(index)}
                       onMouseLeave={() => setIsHover(null)}
                       size={30}
@@ -63,15 +66,28 @@ function Favories() {
                   </a>
                 </td>
                 <td className="px-6 py-4">
-                  <button className="rounded bg-blue-600 px-3 py-1 text-white hover:bg-blue-700">
+                  <button
+                    className="rounded bg-blue-600 px-3 py-1 text-white hover:bg-blue-700"
+                    onClick={() => {
+                      setOpenModalPaypal(true);
+                      setSelectedCourse(course);
+                    }}
+                  >
                     Đăng ký
                   </button>
                 </td>
               </tr>
+              
             ))}
           </tbody>
         </table>
       </div>
+      <Paypal
+        openModalPaypal={openModalPaypal}
+        setOpenModalPaypal={setOpenModalPaypal}
+        course={selectedCourse}
+      />
+      
     </div>
   );
 }

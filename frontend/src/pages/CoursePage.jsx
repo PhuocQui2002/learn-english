@@ -57,8 +57,8 @@ function CoursePage() {
 
   const itemsPerPage = 8;
     const [currentPage, setCurrentPage] = useState(1);
-    const totalPages = Math.ceil(mockCourses.length / itemsPerPage);
-    const paginatedCourses = mockCourses.slice(
+    const totalPages = Math.ceil(filteredCourses.length / itemsPerPage);
+    const paginatedCourses = filteredCourses.slice(
       (currentPage - 1) * itemsPerPage,
       currentPage * itemsPerPage,
     );
