@@ -14,6 +14,7 @@
 - 💵 Thanh toán **Paypal**.
 - 🖱️ Lọc khóa học **Giá, Tên**.
 - 🔗 Điều hướng đến trang chi tiết khóa học.
+- 🤖 Tích hợp chatbot tư vấn khách hàng
 
 ---
 
